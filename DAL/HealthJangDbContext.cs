@@ -9,9 +9,7 @@ namespace HealthJang.DAL
 {
     public class HealthJangDbContext : DbContext
     {
-        public HealthJangDbContext() : base("HealthJangDbContext")
-        {
-        }
+        public HealthJangDbContext() : base("HealthJangDbContext"){}
 
         public DbSet<User> Users { get; set; }
         public DbSet<Board> Boards { get; set; }

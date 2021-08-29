@@ -1,7 +1,29 @@
-﻿
+﻿@model HealthJang.Models.User
+
 @{
     ViewBag.Title = "Login";
 }
 
 <h2>Login</h2>
 
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label>ID</label>
+            @Html.TextBoxFor(m => m.UserID, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>비밀번호</label>
+            @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </div>
+    </div>
+
+}
