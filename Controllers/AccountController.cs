@@ -23,6 +23,11 @@ namespace HealthJang.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 실무에서는 쿠키로 주로 하기때문에 변경필요!
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {

@@ -176,10 +176,14 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\LoginSuccess.cshtml" />
+    <Content Include="Views\Board\Index.cshtml" />
+    <Content Include="Views\Board\Add.cshtml" />
+    <Content Include="Views\Board\Edit.cshtml" />
+    <Content Include="Views\Board\Detail.cshtml" />
+    <Content Include="TIL\0831.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Board\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

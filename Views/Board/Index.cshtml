@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.BoardNo</td>
+                <td><a href="/Board/Detail/@m.BoardNo">@m.BoardTitle</a></td>
+                <td>@m.UserNo</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("게시글 추가", "Add", "Board", null, new { @class = "btn btn-primary" })

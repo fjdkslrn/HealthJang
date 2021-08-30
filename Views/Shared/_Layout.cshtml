@@ -16,11 +16,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("HealthJang", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("게시판", "Index", "Board")</li>
+                    <li>@Html.ActionLink("쇼핑샵", "Index", "Board")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["USER_LOGIN_KEY"] == null)
@@ -30,6 +31,8 @@
                     }
                     else
                     {
+                        <!--로그인 쿠키형식으로 바꾸고 -->
+                        <li>@Html.ActionLink("사용자 ID","","")</li>
                         <li>@Html.ActionLink("로그아웃", "Logout", "Account")</li>
                     }
 
