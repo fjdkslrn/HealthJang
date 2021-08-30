@@ -23,8 +23,16 @@
                     <li>@Html.ActionLink("게시판", "Index", "Board")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("회원가입", "Register", "Account")</li>
-                    <li>@Html.ActionLink("로그인", "Login", "Account")</li>
+                    @if (Session["USER_LOGIN_KEY"] == null)
+                    {
+                        <li>@Html.ActionLink("회원가입", "Register", "Account")</li>
+                        <li>@Html.ActionLink("로그인", "Login", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("로그아웃", "Logout", "Account")</li>
+                    }
+
                 </ul>
             </div>
         </div>

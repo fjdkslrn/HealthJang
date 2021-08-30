@@ -1,5 +1,6 @@
 ﻿using HealthJang.DAL;
 using HealthJang.Models;
+using HealthJang.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace HealthJang.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User model)
+        public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -35,6 +36,7 @@ namespace HealthJang.Controllers
                     if(user != null)
                     {
                         // 로그인 성공
+                        HttpContext.Session.Add("USER_LOGIN_KEY", user.UserNo.ToString());
                         return RedirectToAction("LoginSuccess", "Home");
                     }
                 }
@@ -44,6 +46,13 @@ namespace HealthJang.Controllers
 
             return View(model);
         }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Remove("USER_LOGIN_KEY");
+            return RedirectToAction("Index", "Home");
+        }
+
 
         /// <summary>
         /// 회원가입

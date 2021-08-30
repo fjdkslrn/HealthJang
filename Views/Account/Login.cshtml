@@ -1,4 +1,4 @@
-﻿@model HealthJang.Models.User
+﻿@model HealthJang.ViewModels.LoginViewModel
 
 @{
     ViewBag.Title = "Login";
@@ -14,11 +14,13 @@
         <div class="form-group">
             <label>ID</label>
             @Html.TextBoxFor(m => m.UserID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserID, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             <label>비밀번호</label>
             @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserPassword, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
