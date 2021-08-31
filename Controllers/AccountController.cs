@@ -42,7 +42,7 @@ namespace HealthJang.Controllers
                     {
                         // 로그인 성공
                         HttpContext.Session.Add("USER_LOGIN_KEY", user.UserNo.ToString());
-                        return RedirectToAction("LoginSuccess", "Home");
+                        return RedirectToAction("Index", "Board");
                     }
                 }
                 // 로그인 실패

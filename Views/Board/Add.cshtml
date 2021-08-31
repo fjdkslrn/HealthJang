@@ -4,6 +4,8 @@
     ViewBag.Title = "Add";
 }
 
+<script src="https://cdn.tiny.cloud/1/wcmdl7m0u7t09yxnga64m3lj5tn1os8swg0njclrw3fg3hfw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 <h2>Add</h2>
 
 @using (Html.BeginForm())
@@ -22,10 +24,22 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">등록하기</button>
+            <button type="submit" class="btn btn-primary" onclick="testClick();">등록하기</button>
             @Html.ActionLink("뒤로가기", "Index")
         </div>
-
     </div>
 }
 
+
+
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        menubar: 'custom',
+    });
+
+    function testClick() {
+        var content = tinymce.activeEditor.getContent();
+        console.log(content);
+    };
+</script>

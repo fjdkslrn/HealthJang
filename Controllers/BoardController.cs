@@ -43,6 +43,7 @@ namespace HealthJang.Controllers
             return View();
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Add(Board model)
         {

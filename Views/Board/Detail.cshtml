@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "Detail";
 }
+<style>
+    #boardContents {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 6px 12px;
+    }
+</style>
+
 
 <h2>Detail</h2>
 
@@ -16,7 +24,7 @@
     <div class="form-group">
         <!--@Html.LabelFor(m => m.BoardContents)-->
         <label>내용</label>
-        @Html.TextAreaFor(m => m.BoardContents, new { @class = "form-control", rows = 20, disabled = "disabled" })
+        <div id="boardContents">@Html.Raw(@Model.BoardContents)</div>
     </div>
 
     <div class="form-group">

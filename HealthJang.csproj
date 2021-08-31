@@ -180,6 +180,7 @@
     <Content Include="Views\Board\Add.cshtml" />
     <Content Include="Views\Board\Edit.cshtml" />
     <Content Include="Views\Board\Detail.cshtml" />
+    <Content Include="TIL\0830.md" />
     <Content Include="TIL\0831.md" />
   </ItemGroup>
   <ItemGroup>
