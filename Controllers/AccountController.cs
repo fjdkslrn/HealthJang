@@ -24,7 +24,7 @@ namespace HealthJang.Controllers
         }
 
         /// <summary>
-        /// 실무에서는 쿠키로 주로 하기때문에 변경필요!
+        /// 실무에서는 쿠키로 주로 하기때문에 변경필요!?
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

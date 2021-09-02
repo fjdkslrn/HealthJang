@@ -2,6 +2,7 @@
 using HealthJang.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -90,14 +91,45 @@ namespace HealthJang.Controllers
         /// 게시글 수정
         /// </summary>
         /// <returns></returns>
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
             if (Session["USER_LOGIN_KEY"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            return View();
+            using (var db = new HealthJangDbContext())
+            {
+                var board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
+                return View(board);
+            }
+
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult Edit(Board model)
+        {
+            if (Session["USER_LOGIN_KEY"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (ModelState.IsValid)
+            {
+                using (var db = new HealthJangDbContext())
+                {
+                    var board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(model.BoardNo));
+
+                    board.BoardTitle = model.BoardTitle;
+                    board.BoardContents = model.BoardContents;
+
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            return View(model);
+
         }
 
         /// <summary>

@@ -182,6 +182,7 @@
     <Content Include="Views\Board\Detail.cshtml" />
     <Content Include="TIL\0830.md" />
     <Content Include="TIL\0831.md" />
+    <Content Include="TIL\0902.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
