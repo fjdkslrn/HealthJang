@@ -136,14 +136,21 @@ namespace HealthJang.Controllers
         /// 게시글 삭제
         /// </summary>
         /// <returns></returns>
-        public ActionResult Delete()
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
             if (Session["USER_LOGIN_KEY"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            return View();
+            using(var db = new HealthJangDbContext())
+            {
+                Board board = db.Boards.Find(id);
+                db.Boards.Remove(board);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }
