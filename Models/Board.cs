@@ -21,7 +21,6 @@ namespace HealthJang.Models
         [Required]
         public int UserNo { get; set; }
 
-        [ForeignKey("UserNo")]
         public virtual User User { get; set; }
     }
 }

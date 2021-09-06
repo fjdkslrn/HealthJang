@@ -21,9 +21,11 @@ namespace HealthJang.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            using(var db = new HealthJangDbContext())
+            using(HealthJangDbContext db = new HealthJangDbContext())
             {
-                var list = db.Boards.ToList();       
+                List<Board> list = db.Boards
+                    .Include(m => m.User)
+                    .ToList();       
                 return View(list);
             }
             
@@ -44,7 +46,7 @@ namespace HealthJang.Controllers
             return View();
         }
 
-        [ValidateInput(false)]
+        [ValidateInput(false)] // HTML 내용 받기 위해 사용
         [HttpPost]
         public ActionResult Add(Board model)
         {
@@ -57,7 +59,7 @@ namespace HealthJang.Controllers
 
             if (ModelState.IsValid)
             {
-                using (var db = new HealthJangDbContext())
+                using (HealthJangDbContext db = new HealthJangDbContext())
                 {
                     db.Boards.Add(model);
                     db.SaveChanges();
@@ -79,9 +81,9 @@ namespace HealthJang.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            using (var db = new HealthJangDbContext())
+            using (HealthJangDbContext db = new HealthJangDbContext())
             {
-                var board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
+                Board board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
                 return View(board);
             }
 
@@ -98,9 +100,9 @@ namespace HealthJang.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            using (var db = new HealthJangDbContext())
+            using (HealthJangDbContext db = new HealthJangDbContext())
             {
-                var board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
+                Board board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
                 return View(board);
             }
 
@@ -117,9 +119,9 @@ namespace HealthJang.Controllers
 
             if (ModelState.IsValid)
             {
-                using (var db = new HealthJangDbContext())
+                using (HealthJangDbContext db = new HealthJangDbContext())
                 {
-                    var board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(model.BoardNo));
+                    Board board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(model.BoardNo));
 
                     board.BoardTitle = model.BoardTitle;
                     board.BoardContents = model.BoardContents;
@@ -144,7 +146,7 @@ namespace HealthJang.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            using(var db = new HealthJangDbContext())
+            using(HealthJangDbContext db = new HealthJangDbContext())
             {
                 Board board = db.Boards.Find(id);
                 db.Boards.Remove(board);

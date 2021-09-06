@@ -33,10 +33,9 @@ namespace HealthJang.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new HealthJangDbContext())
+                using (HealthJangDbContext db = new HealthJangDbContext())
                 {
-                    var user = db.Users.FirstOrDefault(u => u.UserID.Equals(model.UserID) &&
-                    u.UserPassword.Equals(model.UserPassword));
+                    User user = db.Users.FirstOrDefault(u => u.UserID.Equals(model.UserID) && u.UserPassword.Equals(model.UserPassword));
 
                     if(user != null)
                     {
@@ -46,7 +45,7 @@ namespace HealthJang.Controllers
                     }
                 }
                 // 로그인 실패
-                ModelState.AddModelError(string.Empty, "로그인 불가");
+                ModelState.AddModelError(string.Empty, "ID 또는 비밀번호를 확인해주세요.");
             }
 
             return View(model);
@@ -73,7 +72,7 @@ namespace HealthJang.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new HealthJangDbContext())
+                using (HealthJangDbContext db = new HealthJangDbContext())
                 {
                     db.Users.Add(model);
                     db.SaveChanges();
