@@ -98,6 +98,8 @@ namespace HealthJang.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            ViewBag.sessionUserNo = int.Parse(Session["USER_LOGIN_KEY"].ToString());
+
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
                 Board board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
@@ -117,9 +119,15 @@ namespace HealthJang.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            int sessionUserNo = int.Parse(Session["USER_LOGIN_KEY"].ToString());
+
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
                 Board board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
+                if(sessionUserNo != board.UserNo)
+                {
+                    return Content("<script> alert('접근 오류!'); location.href = '/Board'; </script>");
+                }
                 return View(board);
             }
 
