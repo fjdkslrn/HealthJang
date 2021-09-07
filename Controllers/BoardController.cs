@@ -15,7 +15,7 @@ namespace HealthJang.Controllers
         /// 게시글 목록
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             if(Session["USER_LOGIN_KEY"] == null)
             {
@@ -23,8 +23,25 @@ namespace HealthJang.Controllers
             }
             using(HealthJangDbContext db = new HealthJangDbContext())
             {
-                List<Board> list = db.Boards
+                // 페이징 처리 추가
+                int perPost = 5;
+                int perPage = 5;
+                int totalPost = db.Boards.ToList().Count();
+                int totalPage = totalPost % perPost == 0 ? totalPost / perPost : totalPost / perPost + 1;
+
+                int startPage = ((page-1) / perPage) * perPage + 1;
+                int endPage = (((page - 1) / perPage + 1) * perPage) > totalPage ? totalPage : (((page - 1) / perPage + 1) * perPage);
+
+                ViewBag.startPage = startPage;
+                ViewBag.endPage = endPage;
+                ViewBag.prev = startPage == 1 ? false : true;
+                ViewBag.next = endPage == totalPage ? false : true;
+
+                List <Board> list = db.Boards
                     .Include(m => m.User)
+                    .OrderByDescending(m => m.BoardNo)
+                    .Skip((page-1)*perPage)
+                    .Take(perPage)
                     .ToList();       
                 return View(list);
             }
