@@ -1,4 +1,4 @@
-﻿@model HealthJang.Models.Board
+﻿@model HealthJang.ViewModels.DetailViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -9,6 +9,9 @@
         border-radius: 4px;
         padding: 6px 12px;
     }
+    .form-horizontal{
+        padding-bottom:100px;
+    }
 </style>
 
 
@@ -16,27 +19,74 @@
 
 <div class="form-horizontal">
     <div class="form-group">
-        <!--@Html.LabelFor(m => m.BoardTitle)-->
         <label>제목</label>
-        @Html.TextBoxFor(m => m.BoardTitle, new { @class = "form-control", style="background-color:white;" ,disabled = "disabled"})
+        @Html.TextBoxFor(m => m.board.BoardTitle, new { @class = "form-control", style="background-color:white;" ,disabled = "disabled"})
     </div>
 
     <div class="form-group">
-        <!--@Html.LabelFor(m => m.BoardContents)-->
+        <!--@Html.LabelFor(m => m.board.BoardContents)-->
         <label>내용</label>
-        <div id="boardContents">@Html.Raw(@Model.BoardContents)</div>
+        <div id="boardContents">@Html.Raw(@Model.board.BoardContents)</div>
     </div>
 
     <div class="form-group">
-        @if (ViewBag.sessionUserNo == Model.UserNo)
+        @if (ViewBag.sessionUserNo == Model.board.UserNo)
         {
-            <a href="/Board/Edit/@Model.BoardNo" class="btn btn-warning">게시글 수정</a>
+            <a href="/Board/Edit/@Model.board.BoardNo" class="btn btn-warning">게시글 수정</a>
             <form action="/Board/Delete" method="post" style="float:right;">
-                <input type="hidden" name="id" value=@Model.BoardNo>
+                <input type="hidden" name="id" value=@Model.board.BoardNo>
                 <input type="submit" value="게시글 삭제" class="btn btn-danger">
             </form>
         }
         <a href="javascript:history.back();">뒤로가기</a>
     </div>
-
 </div>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <label>코멘트</label>
+        <textarea name="comment" id="comment" rows="5" class="form-control" placeholder="코멘트를 입력해주세요."></textarea>
+        <input type="button" value="코멘트 등록" class="btn btn-primary" style="margin-top:15px; float:right;" onclick="commentWrite();">
+    </div>
+    <hr />
+    <div class="form-group">
+        @foreach (var comment in Model.comments)
+        {
+            @comment.User.UserName
+        <span class="form-control" style="background-color: white; margin-bottom: 20px; display: inline-table;" disabled="disabled" >@Html.Raw(comment.CommentContents.Replace("\r\n", "<br>").Replace("\n", "<br>"))</span>
+        }
+
+    </div>
+</div>
+
+
+<script>
+    function commentWrite() {
+        var comment = document.getElementById("comment").value;
+
+        if (comment.length == 0) {
+            alert("코멘트를 입력하세요");
+            return;
+        }
+
+        var param = {
+            "BoardNo": @Model.board.BoardNo,
+            "UserNo": @ViewBag.sessionUserNo,
+            "CommentContents": comment
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/Board/Comment",
+            data: param,
+            success: function (status) {
+                alert(status);
+                location.reload();
+            },
+            error: function (status) {
+                alert(status);
+            }
+        });
+    }
+
+</script>

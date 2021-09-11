@@ -1,5 +1,6 @@
 ﻿using HealthJang.DAL;
 using HealthJang.Models;
+using HealthJang.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -103,7 +104,19 @@ namespace HealthJang.Controllers
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
                 Board board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
-                return View(board);
+
+                List<Comment> commentList = db.Comments
+                    .Include(c => c.User)
+                    .OrderByDescending(c => c.CommentNo)
+                    .Where(c => c.BoardNo.Equals(id))
+                    .ToList();
+
+                DetailViewModel detailBoard = new DetailViewModel();
+                detailBoard.board = board;
+                detailBoard.comments = commentList;
+
+
+                return View(detailBoard);
             }
 
         }
@@ -178,6 +191,24 @@ namespace HealthJang.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// 코멘트 추가
+        /// </summary>
+        [HttpPost]
+        public string Comment(Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                using (HealthJangDbContext db = new HealthJangDbContext())
+                {
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+                }
+                return "코멘트 업로드 성공";
+            }
+            return "코멘트 업로드 실패";
         }
     }
 }
