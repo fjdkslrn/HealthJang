@@ -18,11 +18,11 @@ namespace HealthJang.Controllers
         /// <returns></returns>
         public ActionResult Index(int page = 1)
         {
-            if(Session["USER_LOGIN_KEY"] == null)
+            if (Session["USER_LOGIN_KEY"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }
-            using(HealthJangDbContext db = new HealthJangDbContext())
+            using (HealthJangDbContext db = new HealthJangDbContext())
             {
                 // 페이징 처리 추가
                 int perPost = 5;
@@ -30,7 +30,7 @@ namespace HealthJang.Controllers
                 int totalPost = db.Boards.ToList().Count();
                 int totalPage = totalPost % perPost == 0 ? totalPost / perPost : totalPost / perPost + 1;
 
-                int startPage = ((page-1) / perPage) * perPage + 1;
+                int startPage = ((page - 1) / perPage) * perPage + 1;
                 int endPage = (((page - 1) / perPage + 1) * perPage) > totalPage ? totalPage : (((page - 1) / perPage + 1) * perPage);
 
                 ViewBag.startPage = startPage;
@@ -38,15 +38,15 @@ namespace HealthJang.Controllers
                 ViewBag.prev = startPage == 1 ? false : true;
                 ViewBag.next = endPage == totalPage ? false : true;
 
-                List <Board> list = db.Boards
+                List<Board> list = db.Boards
                     .Include(m => m.User)
                     .OrderByDescending(m => m.BoardNo)
-                    .Skip((page-1)*perPage)
+                    .Skip((page - 1) * perPage)
                     .Take(perPage)
-                    .ToList();       
+                    .ToList();
                 return View(list);
             }
-            
+
         }
 
 
@@ -137,7 +137,7 @@ namespace HealthJang.Controllers
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
                 Board board = db.Boards.FirstOrDefault(m => m.BoardNo.Equals(id));
-                if(sessionUserNo != board.UserNo)
+                if (sessionUserNo != board.UserNo)
                 {
                     return Content("<script> alert('접근 오류!'); location.href = '/Board'; </script>");
                 }
@@ -184,7 +184,7 @@ namespace HealthJang.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            using(HealthJangDbContext db = new HealthJangDbContext())
+            using (HealthJangDbContext db = new HealthJangDbContext())
             {
                 Board board = db.Boards.Find(id);
                 db.Boards.Remove(board);
@@ -209,6 +209,28 @@ namespace HealthJang.Controllers
                 return "코멘트 업로드 성공";
             }
             return "코멘트 업로드 실패";
+        }
+
+        /// <summary>
+        /// 코멘트 삭제
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult CommentDelete(int commentId)
+        {
+            if (Session["USER_LOGIN_KEY"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            using (HealthJangDbContext db = new HealthJangDbContext())
+            {
+                Comment comment = db.Comments.Find(commentId);
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

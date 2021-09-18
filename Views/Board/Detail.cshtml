@@ -9,8 +9,9 @@
         border-radius: 4px;
         padding: 6px 12px;
     }
-    .form-horizontal{
-        padding-bottom:100px;
+
+    .form-horizontal {
+        padding-bottom: 100px;
     }
 </style>
 
@@ -20,7 +21,7 @@
 <div class="form-horizontal">
     <div class="form-group">
         <label>제목</label>
-        @Html.TextBoxFor(m => m.board.BoardTitle, new { @class = "form-control", style="background-color:white;" ,disabled = "disabled"})
+        @Html.TextBoxFor(m => m.board.BoardTitle, new { @class = "form-control", style = "background-color:white;", disabled = "disabled" })
     </div>
 
     <div class="form-group">
@@ -52,8 +53,15 @@
     <div class="form-group">
         @foreach (var comment in Model.comments)
         {
-            @comment.User.UserName
-        <span class="form-control" style="background-color: white; margin-bottom: 20px; display: inline-table;" disabled="disabled" >@Html.Raw(comment.CommentContents.Replace("\r\n", "<br>").Replace("\n", "<br>"))</span>
+            <span>@comment.User.UserName</span>
+            if (ViewBag.sessionUserNo == comment.UserNo)
+            {
+                <form action="/Board/CommentDelete" method="post" style="float:right">
+                    <input type="hidden" name="commentId" value=@comment.CommentNo>
+                    <input type="submit" value="X" class="btn btn-danger" style="padding:1px 5px;margin:3px;">
+                </form>
+            }
+            <span class="form-control" style="background-color: white; margin-bottom: 20px; display: inline-table;" disabled="disabled">@Html.Raw(comment.CommentContents.Replace("\r\n", "<br>").Replace("\n", "<br>"))</span>
         }
 
     </div>
