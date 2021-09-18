@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Shop Index";
+}
+<style>
+    .panel.panel-default {
+    }
+</style>
+
+
+<h2>Shop Index</h2>
+
+@foreach (var product in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>@product.ProductName</h2>
+            <a href="/" class="btn btn-success">장바구니 담기</a>
+        </div>
+        <div class="panel-body">
+            <span><img src="~/Content/Image/@product.ProductImg" width="350" alt="@product.ProductImg" /></span>
+            <span><b>@product.ProductDesc</b></span>
+        </div>
+    </div>
+}

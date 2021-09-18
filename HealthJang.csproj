@@ -130,6 +130,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="DAL\HealthJangDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -142,8 +143,15 @@
     <Compile Include="Migrations\202109110839267_second.designer.cs">
       <DependentUpon>202109110839267_second.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109181416396_22.cs" />
+    <Compile Include="Migrations\202109181416396_22.designer.cs">
+      <DependentUpon>202109181416396_22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,6 +163,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\habinger_belt.jpg" />
+    <Content Include="Content\Image\wsf_strap.jpg" />
+    <Content Include="Content\Image\wsf_wrist.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -195,6 +206,7 @@
     <Content Include="TIL\0831.md" />
     <Content Include="TIL\0902.md" />
     <Content Include="TIL\0911.md" />
+    <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -219,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109110839267_second.resx">
       <DependentUpon>202109110839267_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109181416396_22.resx">
+      <DependentUpon>202109181416396_22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
