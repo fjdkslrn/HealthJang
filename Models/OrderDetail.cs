@@ -9,7 +9,7 @@ namespace HealthJang.Models
     public class OrderDetail
     {
         [Key]
-        public int MyProperty { get; set; }
+        public int OrderDetailNo { get; set; }
 
         [Required]
         public int OrderNo { get; set; }

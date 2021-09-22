@@ -147,6 +147,10 @@
     <Compile Include="Migrations\202109181416396_22.designer.cs">
       <DependentUpon>202109181416396_22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109191016595_ted.cs" />
+    <Compile Include="Migrations\202109191016595_ted.designer.cs">
+      <DependentUpon>202109191016595_ted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Order.cs" />
@@ -234,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109181416396_22.resx">
       <DependentUpon>202109181416396_22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109191016595_ted.resx">
+      <DependentUpon>202109191016595_ted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
