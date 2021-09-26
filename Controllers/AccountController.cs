@@ -40,7 +40,8 @@ namespace HealthJang.Controllers
                     if(user != null)
                     {
                         // 로그인 성공
-                        HttpContext.Session.Add("USER_LOGIN_KEY", user.UserNo.ToString());
+                        HttpContext.Session.Add("USER_LOGIN_NO", user.UserNo.ToString());
+                        HttpContext.Session.Add("USER_LOGIN_ID", user.UserID.ToString());
                         return RedirectToAction("Index", "Board");
                     }
                 }
@@ -53,7 +54,8 @@ namespace HealthJang.Controllers
 
         public ActionResult Logout()
         {
-            HttpContext.Session.Remove("USER_LOGIN_KEY");
+            HttpContext.Session.Remove("USER_LOGIN_NO");
+            HttpContext.Session.Remove("USER_LOGIN_ID");
             return RedirectToAction("Index", "Home");
         }
 

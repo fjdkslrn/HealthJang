@@ -1,4 +1,5 @@
-﻿using HealthJang.DAL;
+﻿using HealthJang.Common;
+using HealthJang.DAL;
 using HealthJang.Models;
 using HealthJang.ViewModels;
 using System;
@@ -18,10 +19,10 @@ namespace HealthJang.Controllers
         /// <returns></returns>
         public ActionResult Index(int page = 1)
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
                 // 페이징 처리 추가
@@ -54,26 +55,28 @@ namespace HealthJang.Controllers
         /// 게시글 추가
         /// </summary>
         /// <returns></returns>
+        [LoginFilter]
         public ActionResult Add()
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
 
             return View();
         }
 
+        [LoginFilter]
         [ValidateInput(false)] // HTML 내용 받기 위해 사용
         [HttpPost]
         public ActionResult Add(Board model)
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
 
-            model.UserNo = int.Parse(Session["USER_LOGIN_KEY"].ToString());
+            model.UserNo = int.Parse(Session["USER_LOGIN_NO"].ToString());
 
             if (ModelState.IsValid)
             {
@@ -92,14 +95,15 @@ namespace HealthJang.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [LoginFilter]
         public ActionResult Detail(int id)
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
 
-            ViewBag.sessionUserNo = int.Parse(Session["USER_LOGIN_KEY"].ToString());
+            ViewBag.sessionUserNo = int.Parse(Session["USER_LOGIN_NO"].ToString());
 
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
@@ -125,14 +129,15 @@ namespace HealthJang.Controllers
         /// 게시글 수정
         /// </summary>
         /// <returns></returns>
+        [LoginFilter]
         public ActionResult Edit(int id)
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
 
-            int sessionUserNo = int.Parse(Session["USER_LOGIN_KEY"].ToString());
+            int sessionUserNo = int.Parse(Session["USER_LOGIN_NO"].ToString());
 
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
@@ -146,14 +151,15 @@ namespace HealthJang.Controllers
 
         }
 
+        [LoginFilter]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Edit(Board model)
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
 
             if (ModelState.IsValid)
             {
@@ -176,13 +182,14 @@ namespace HealthJang.Controllers
         /// 게시글 삭제
         /// </summary>
         /// <returns></returns>
+        [LoginFilter]
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
 
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
@@ -196,6 +203,7 @@ namespace HealthJang.Controllers
         /// <summary>
         /// 코멘트 추가
         /// </summary>
+        [LoginFilter]
         [HttpPost]
         public string Comment(Comment comment)
         {
@@ -216,13 +224,14 @@ namespace HealthJang.Controllers
         /// </summary>
         /// <param name="comment"></param>
         /// <returns></returns>
+        [LoginFilter]
         [HttpPost]
         public ActionResult CommentDelete(int commentId)
         {
-            if (Session["USER_LOGIN_KEY"] == null)
+            /*if (Session["USER_LOGIN_ID"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }*/
 
             using (HealthJangDbContext db = new HealthJangDbContext())
             {
