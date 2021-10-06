@@ -4,12 +4,6 @@ HealthJang 프로젝트 입니다!
 헬스 커뮤니티와 헬스용품 판매 기능을 구현할 예정입니다!
 
 
-## 접속 링크 입니다!
-https://f1cc-1-241-84-211.ngrok.io
-
-사용자 ID: user1
-사용자 PW: user1
-
 
 <br><br><br>
 
